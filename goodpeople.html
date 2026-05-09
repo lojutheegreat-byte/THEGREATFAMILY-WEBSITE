@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Login Page</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html,body{
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      padding:15px;
+      background:#000;
+    }
+
+    /* FULL BACKGROUND IMAGE */
+    .background{
+      position:absolute;
+      inset:0;
+
+      background:url("water.jpg") no-repeat center center;
+      background-size:cover;
+
+      z-index:-2;
+
+      transform:scale(1.05);
+    }
+
+    /* DARK OVERLAY */
+    .overlay{
+      position:absolute;
+      inset:0;
+
+      background:rgba(0,0,0,0.45);
+
+      z-index:-1;
+    }
+
+    /* LOGIN BOX */
+    .login-box{
+      width:100%;
+      max-width:370px;
+
+      padding:30px 24px;
+
+      border-radius:22px;
+
+      background:rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(15px);
+
+      border:1px solid rgba(255,255,255,0.2);
+
+      box-shadow:0 10px 35px rgba(0,0,0,0.45);
+
+      color:white;
+      text-align:center;
+
+      animation:fadeUp 0.8s ease;
+    }
+
+    h2{
+      margin-bottom:24px;
+      font-size:30px;
+      letter-spacing:3px;
+    }
+
+    .input-box{
+      margin-bottom:16px;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+
+      border:none;
+      outline:none;
+
+      border-radius:12px;
+
+      background:rgba(255,255,255,0.16);
+
+      color:white;
+      font-size:15px;
+
+      transition:0.3s;
+    }
+
+    input:focus{
+      background:rgba(255,255,255,0.24);
+      transform:scale(1.02);
+    }
+
+    input::placeholder{
+      color:rgba(255,255,255,0.75);
+    }
+
+    .forgot{
+      text-align:right;
+      margin-bottom:18px;
+      font-size:13px;
+    }
+
+    .forgot a{
+      color:#7cc0ff;
+      text-decoration:none;
+    }
+
+    .forgot a:hover{
+      text-decoration:underline;
+    }
+
+    button{
+      width:100%;
+      padding:14px;
+
+      border:none;
+      border-radius:12px;
+
+      background:white;
+      color:black;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      transition:0.3s;
+    }
+
+    button:hover{
+      transform:scale(1.03);
+    }
+
+    /* ERROR */
+    .error{
+      margin-top:14px;
+      font-size:13px;
+
+      color:#ff5b5b;
+
+      opacity:0;
+      transition:0.3s;
+    }
+
+    .error.show{
+      opacity:1;
+      animation:shake 0.3s;
+    }
+
+    /* SHAKE */
+    @keyframes shake{
+      0%{transform:translateX(0);}
+      25%{transform:translateX(-5px);}
+      50%{transform:translateX(5px);}
+      75%{transform:translateX(-5px);}
+      100%{transform:translateX(0);}
+    }
+
+    /* FADE */
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* MOBILE VIEW */
+    @media screen and (max-width:480px){
+
+      body{
+        padding:12px;
+      }
+
+      /* MAKE BACKGROUND LOOK BETTER ON PHONE */
+      .background{
+        background-position:center center;
+        background-size:cover;
+        transform:scale(1.15);
+      }
+
+      .login-box{
+        max-width:100%;
+        padding:25px 18px;
+        border-radius:18px;
+      }
+
+      h2{
+        font-size:25px;
+      }
+
+      input{
+        padding:13px;
+        font-size:14px;
+      }
+
+      button{
+        padding:13px;
+        font-size:15px;
+      }
+
+      .forgot{
+        font-size:12px;
+      }
+
+      .error{
+        font-size:12px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="background"></div>
+
+  <!-- OVERLAY -->
+  <div class="overlay"></div>
+
+  <!-- LOGIN BOX -->
+  <div class="login-box">
+
+    <h2>LOGIN</h2>
+
+    <div class="input-box">
+      <input
+        type="text"
+        placeholder="Username"
+        id="username"
+      >
+    </div>
+
+    <div class="input-box">
+      <input
+        type="password"
+        placeholder="Password"
+        id="password"
+      >
+    </div>
+
+    <div class="forgot">
+      <a href="#">Forgot Password?</a>
+    </div>
+
+    <button onclick="goToPage()">
+      Login
+    </button>
+
+    <div class="error" id="errorMsg">
+      Incorrect username or password
+    </div>
+
+  </div>
+
+  <script>
+
+    function goToPage(){
+
+      const username =
+      document.getElementById("username").value;
+
+      const password =
+      document.getElementById("password").value;
+
+      const errorMsg =
+      document.getElementById("errorMsg");
+
+      if(
+        username === "alvin and alice" &&
+        password === "trustingod"
+      ){
+
+        window.location.href = "USERS.html";
+
+      }else{
+
+        errorMsg.classList.add("show");
+
+        setTimeout(()=>{
+          errorMsg.classList.remove("show");
+        },2000);
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
